@@ -1,0 +1,15 @@
+<header ng-controller="AuthenticationController">
+    <nav id="menu" class="navbar navbar-default navbar-static-top">
+        <ul ng-if="!isLogged" class="nav navbar-nav">
+            <li><a href="#/">Issue Tracking System</a></li>
+            <li><a href="#/login">Login</a></li>
+            <li><a href="#/register">Register</a></li>
+
+        </ul>
+        <ul  class="nav navbar-nav" ng-if="isLogged">
+            <li><a href="#/dashboard">Issue Tracking System</a></li>
+            <li><a href="#/project">Projects</a></li>
+            <li><a href="#/logout" ng-click="logout()" >Logout</a></li>
+        </ul>
+    </nav>
+</header>

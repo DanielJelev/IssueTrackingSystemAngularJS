@@ -1,0 +1,28 @@
+
+<section class="container login">
+    <div class="well bs-component col-lg-6 col-lg-offset-3">
+        <form class="form-horizontal">
+            <fieldset>
+                <legend>Login</legend>
+                <div class="form-group">
+                    <label for="username" class="col-lg-2 control-label">Username:</label>
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control" id="username" placeholder="Username" ng-model="userData.Username">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword" class="col-lg-2 control-label">Password:</label>
+                    <div class="col-lg-10">
+                        <input type="password" class="form-control" id="loginPassword" placeholder="Password" ng-model="userData.Password">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-4">
+                        <a href="#/" class="btn btn-default">Cancel</a>
+                        <button ng-click="login(userData)" type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</section>
