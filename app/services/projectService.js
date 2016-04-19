@@ -7,7 +7,7 @@ app.factory('projectService',['$http','baseServiceUrl','authenticationService',
 
         projectService.getAllProjects = function(){
             return $http({
-                url : baseServiceUrl + "/Project",
+                url :  "http://softuni-issue-tracker.azurewebsites.net/projects",
                 method : "GET",
                 headers: authenticationService.getHeaders()
             });

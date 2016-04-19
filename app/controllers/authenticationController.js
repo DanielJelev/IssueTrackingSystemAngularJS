@@ -5,8 +5,8 @@ app.controller('AuthenticationController',[
     'authenticationService',
     'notifyService',
     '$localStorage',
-
-    function ($scope, $location, $rootScope, authenticationService,notifyService, $localStorage) {
+    '$window',
+    function ($scope, $location, $rootScope, authenticationService,notifyService, $localStorage,$window) {
 
         $scope.isLogged = authenticationService.isLoggedIn();
 
@@ -27,25 +27,24 @@ app.controller('AuthenticationController',[
             authenticationService.register(userData).then(
                 function success(serverData) {
                     authenticationService.setCredentials(serverData.data);
-                    notifyService.showInfo('Successful login');
-                    $location.path("/dashboard");
+                    notifyService.showInfo('Successful register');
+
                 },
                 function error(error) {
-                    notifyService.showError('Cannot login' + error)
+                    notifyService.showError("User registration failed", error);
                 }
             );
         };
 
         $scope.login = function (userData) {
-
             authenticationService.login(userData).then(
                 function success(serverData) {
                     authenticationService.setCredentials(serverData.data);
                     notifyService.showInfo('Successful login');
-                    $location.path("/dashboard");
+
                 },
                 function error(error) {
-                    notifyService.showError('Cannot register' + error)
+                    notifyService.showError("User login failed", error);
                 }
             );
         };
@@ -54,8 +53,7 @@ app.controller('AuthenticationController',[
             authenticationService.logout().then(
                 function success(serverData) {
                     authenticationService.clearCredentials(serverData.data);
-                    notifyService.showInfo('GoodBy!');
-                    $location.path('/');
+                    notifyService.showInfo('Good Bye!');
                 },
                 function error(error) {
 

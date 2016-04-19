@@ -3,14 +3,15 @@
 var app = angular.module('issueTracker', ['ngRoute', 'ngResource', 'ngStorage']);
 
 app.constant({
-  'baseServiceUrl': 'https://softuni-issue-tracker.azurewebsites.net/api'
+    'baseServiceUrl': 'https://softuni-issue-tracker.azurewebsites.net/api',
+    pageSize: 2
 });
 
 
 app.config(['$routeProvider', function ($routeProvider) {
   $routeProvider
       .when('/', {
-        templateUrl: 'views/welcome.html',
+        templateUrl: 'views/home.html',
         controller: 'MainController'
       })
       .when('/login', {
@@ -20,14 +21,6 @@ app.config(['$routeProvider', function ($routeProvider) {
       .when('/register', {
         templateUrl: 'views/user/register.html',
         controller: 'AuthenticationController'
-      })
-      .when('/logout', {
-        templateUrl: 'views/welcome.html',
-        controller: 'AuthenticationController'
-      })
-      .when('/dashboard', {
-          templateUrl: 'views/dashboard/dashboard.html',
-          controller: 'MainController'
       })
       .when('/projects', {
           templateUrl: 'views/project/project.html',

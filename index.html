@@ -1,26 +1,18 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]><html lang="en" ng-app="issueTracker" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]><html lang="en" ng-app="issueTracker" class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]><html lang="en" ng-app="issueTracker" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="issueTracker" class="no-js"> <!--<![endif]-->
+<html lang="en" ng-app="issueTracker" ng-controller="MainController">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Issue Tracking System</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="style/app.css">
-  <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Issue Tracking System</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="style/app.css">
 </head>
+<header id="app-header" ng-include="'views/nav-header.html'">
+
+</header>
 <body>
- <div ng-include="'views/nav-header.html'">
-
- </div>
-
-  <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
-
   <div ng-view>
 
   </div>

@@ -1,14 +1,18 @@
 app.controller('MainController',[
     '$scope',
     '$q',
+    '$localStorage',
     'authenticationService',
     'projectService',
     'issueService',
 
-    function ($scope, $q,authenticationService,projectService,issueService) {
-        $scope.isLogged = authenticationService.isLoggedIn();
-        if($scope.isLogged){
-            var currentUser = $scope.currentUser;
+    function ($scope, $q,$localStorage,authenticationService,projectService,issueService) {
+
+        $scope.authService = authenticationService;
+
+        if(authenticationService.isLoggedIn()){
+            //debugger
+            var currentUser = $localStorage.currentUser;
 
             authenticationService.userInfo(currentUser).then(function(userData){
                 $scope.userInfo = userData.data;
