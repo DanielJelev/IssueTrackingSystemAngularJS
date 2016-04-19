@@ -3,9 +3,10 @@ app.controller('AuthenticationController',[
     '$location',
     '$rootScope',
     'authenticationService',
+    'notifyService',
     '$localStorage',
 
-    function ($scope, $location, $rootScope, authenticationService, $localStorage) {
+    function ($scope, $location, $rootScope, authenticationService,notifyService, $localStorage) {
 
         $scope.isLogged = authenticationService.isLoggedIn();
 
@@ -26,10 +27,11 @@ app.controller('AuthenticationController',[
             authenticationService.register(userData).then(
                 function success(serverData) {
                     authenticationService.setCredentials(serverData.data);
+                    notifyService.showInfo('Successful login');
                     $location.path("/dashboard");
                 },
                 function error(error) {
-                    console.log(error)
+                    notifyService.showError('Cannot login' + error)
                 }
             );
         };
@@ -39,10 +41,11 @@ app.controller('AuthenticationController',[
             authenticationService.login(userData).then(
                 function success(serverData) {
                     authenticationService.setCredentials(serverData.data);
+                    notifyService.showInfo('Successful login');
                     $location.path("/dashboard");
                 },
                 function error(error) {
-                    console.log(error)
+                    notifyService.showError('Cannot register' + error)
                 }
             );
         };
@@ -51,10 +54,11 @@ app.controller('AuthenticationController',[
             authenticationService.logout().then(
                 function success(serverData) {
                     authenticationService.clearCredentials(serverData.data);
+                    notifyService.showInfo('GoodBy!');
                     $location.path('/');
                 },
                 function error(error) {
-                    console.log(error)
+
                 }
             );
         };
