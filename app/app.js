@@ -3,7 +3,7 @@
 var app = angular.module('issueTracker', ['ngRoute', 'ngResource', 'ngStorage']);
 
 app.constant({
-    'baseServiceUrl': 'https://softuni-issue-tracker.azurewebsites.net/api',
+    'baseServiceUrl': 'https://softuni-issue-tracker.azurewebsites.net/',
     pageSize: 2
 });
 
@@ -30,10 +30,10 @@ app.config(['$routeProvider', function ($routeProvider) {
           templateUrl: 'views/project/Add-new-project.html',
           controller: 'ProjectController'
       })
-      //.when('/profile/edit-profile', {
-      //  templateUrl: 'views/user/edit-profile.html',
-      //  controller: 'MainController',
-      //})
+      .when('/project/:id', {
+        templateUrl: 'views/project/Edit-project.html',
+        controller: 'ProjectController',
+      })
       //.when('/profile/change-password', {
       //  templateUrl: 'views/user/change-password.html',
       //  controller: 'MainController'

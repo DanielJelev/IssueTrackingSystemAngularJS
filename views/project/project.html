@@ -1,8 +1,33 @@
 
 <h1>Projects</h1>
 <div ng-controller="ProjectController">
-    <div ng-repeat="x in projects">
+    <div class="container">
+       <div class="col-md-10">
+           <table class="table table-striped" width="200">
+               <thead>
+               <tr>
+                   <th>Title</th>
+                   <th>Description</th>
+                   <th>Due Date</th>
+                   <th>Assignee</th>
+               </tr>
+               </thead>
+               <tbody>
+               <tr ng-repeat="project in projects">
+                   <th><a href="#/project/{{project.Id}}">{{project.Name}}</a></th>
+                   <th>{{project.Description}}</th>
+                   <th>{{project.Name}}</th>
+                   <th>{{project.Lead.Username}}</th>
+               </tr>
 
-        <p>{{x}}</p>
+               </tbody>
+           </table>
+       </div>
     </div>
+    <pagination
+                total-items="totalProjects" ng-model="projectParams.startPage"
+                items-per-page="projectParams.pageSize" ng-change="getProjects()"
+                max-size="9" boundary-links="true"
+                class="aligner">
+    </pagination>
 </div>

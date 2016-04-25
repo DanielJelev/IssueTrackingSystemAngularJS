@@ -31,7 +31,7 @@ app.factory('authenticationService',
     authenticationService.getCurrentUserData = function () {
         return $http({
             method: 'GET',
-            url: baseServiceUrl + '/me',
+            url: baseServiceUrl + 'api/me',
             headers: this.getHeaders()
         })
     };
@@ -39,7 +39,7 @@ app.factory('authenticationService',
     authenticationService.login = function (userData) {
         return $http({
             method: 'POST',
-            url: baseServiceUrl + '/Token',
+            url: baseServiceUrl + 'api/Token',
             data: "userName=" + userData.Username + "&password=" + userData.Password +
             "&grant_type=password"
         })
@@ -49,7 +49,7 @@ app.factory('authenticationService',
 
         return $http({
             method: 'POST',
-            url: baseServiceUrl + '/Account/Register',
+            url: baseServiceUrl + 'api/Account/Register',
             data: userData
         })
     };
@@ -57,7 +57,7 @@ app.factory('authenticationService',
     authenticationService.logout = function () {
         return $http({
             method: 'POST',
-            url: baseServiceUrl + '/Account/logout',
+            url: baseServiceUrl + 'api/Account/logout',
             headers: this.getHeaders()
         });
     };
@@ -74,7 +74,7 @@ app.factory('authenticationService',
     authenticationService.changePassword = function (userData) {
         return $http({
             method: 'PUT',
-            url: baseServiceUrl + '/Account/changepassword',
+            url: baseServiceUrl + 'api/Account/changepassword',
             data: userData,
             headers: this.getHeaders()
         });
@@ -82,7 +82,7 @@ app.factory('authenticationService',
     authenticationService.userInfo = function (userData) {
         return $http({
             method: 'GET',
-            url: baseServiceUrl.substr(0,baseServiceUrl.length-3) + '/users/me',
+            url: baseServiceUrl + '/users/me',
             data: userData,
             headers: this.getHeaders()
         });

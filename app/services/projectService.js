@@ -5,17 +5,17 @@ app.factory('projectService',['$http','baseServiceUrl','authenticationService',
 
     var projectService = {};
 
-        projectService.getAllProjects = function(){
+        projectService.getAllProjects = function(params){
             return $http({
-                url :  "http://softuni-issue-tracker.azurewebsites.net/projects",
-                method : "GET",
+                method: 'GET',
+                url: baseServiceUrl + 'projects?filter=&pageSize=' + params.pageSize + '&pageNumber=' + params.startPage,
                 headers: authenticationService.getHeaders()
             });
         };
 
         projectService.getProjectById = function(id){
             return $http({
-                url : baseServiceUrl + "/Project/"+ id,
+                url : baseServiceUrl+ "/Projects/"+ id,
                 method : "GET",
                 headers: authenticationService.getHeaders()
             });
@@ -23,7 +23,7 @@ app.factory('projectService',['$http','baseServiceUrl','authenticationService',
 
         projectService.addProject = function(projectData){
             return $http({
-                url : baseServiceUrl + "/Project",
+                url : baseServiceUrl + "projects",
                 method : "POST",
                 headers: authenticationService.getHeaders(),
                 data: projectData
@@ -32,7 +32,7 @@ app.factory('projectService',['$http','baseServiceUrl','authenticationService',
 
         projectService.editProject = function(id , projectData){
             return $http({
-                url : baseServiceUrl + "/Project/"+id,
+                url : baseServiceUrl + "api/Project/"+id,
                 method : "PUT",
                 headers: authenticationService.getHeaders(),
                 data : projectData
