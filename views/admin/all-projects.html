@@ -1,0 +1,41 @@
+
+
+
+
+<div ng-cloak>
+    <div class="text-center" ng-if="result.TotalPages > 0">
+        <div class="container">
+            <uib-pagination total-items="result.TotalCount" ng-model="projectsParams.startPage"
+                            items-per-page="projectsParams.pageSize" ng-change="getProjects()"
+                            max-size="9" boundary-links="true" template-url="app/common/pagination.html">
+            </uib-pagination>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <table class="table table-striped table-hover" ng-if="projects.length > 0">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Lead</th>
+                <th>Labels</th>
+                <th>Priorities</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr ng-project-view ng-repeat="project in projects | orderBy: project.Id"></tr>
+            </tbody>
+        </table>
+        <div class="row text-center">
+            <uib-pagination total-items="totalProjects" ng-model="projectParams.startPage"
+                            items-per-page="projectParams.pageSize" ng-change="getProjects()"
+                            max-size="9" boundary-links="true" >
+            </uib-pagination>
+        </div>
+    </div>
+</div>
+
+

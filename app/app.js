@@ -1,10 +1,10 @@
 'use strict';
 
-var app = angular.module('issueTracker', ['ngRoute', 'ngResource', 'ngStorage']);
+var app = angular.module('issueTracker', ['ngRoute', 'ngResource', 'ngStorage','ui.bootstrap']);
 
 app.constant({
     'baseServiceUrl': 'https://softuni-issue-tracker.azurewebsites.net/',
-    pageSize: 2
+    pageSize: 20
 });
 
 
@@ -23,7 +23,7 @@ app.config(['$routeProvider', function ($routeProvider) {
         controller: 'AuthenticationController'
       })
       .when('/projects', {
-          templateUrl: 'views/project/project.html',
+          templateUrl: 'views/admin/all-projects.html',
           controller: 'ProjectController'
       })
       .when('/projects/add', {

@@ -11,27 +11,29 @@ app.controller('ProjectController', [
 
         $scope.projectParams = {
             'startPage': 1,
-            'pageSize': pageSize * 2 - 1
+            'pageSize': pageSize
         };
         userService.getAllUsers()
             .then(function (success) {
-                console.log(success)
                 $scope.users = success.data.sort(function (a, b) {
                     return a.Username.localeCompare(b.Username);
                 })
             });
 
+
         $scope.getProjects = function () {
-            projectService.getAllProjects(
-                $scope.projectParams,
-                function success(data) {
-                    $scope.totalProjects = data.TotalPages * $scope.projectParams.pageSize ,
-                        $scope.projects = data.Projects;
-                },
-                function error(err) {
-                    notifyService.showError("Failed loading data...", err);
-                });
-        }
+            projectService.getProjectsPaging($scope.projectParams)
+                .then(function success(data){
+                    console.log(data)
+                    $scope.totalProjects = data.data.TotalPages * $scope.projectParams.pageSize;
+                    $scope.projects = data.data.Projects;
+
+            })
+        };
+        $scope.getProjects();
+
+
+
 
         $scope.getProjectById = function(id){
             projectService.getProjectById($routeParams.id)
@@ -43,16 +45,27 @@ app.controller('ProjectController', [
                 });
         };
 
-        $scope.addNewProjects = function (newProject) {
-            var priorities = [];
+        $scope.addNewProjects = function (projectData) {
+            projectData.Labels = [];
+            var Priorities = [];
 
-            newProject.priorities.split(', ').forEach(function (a) {
-                priorities.push({Name: a});
+
+            projectData.priorities.split(", ").forEach(function(p) {
+
+                    Priorities.push({ Name: p.trim() });
+
             });
 
-            newProject.Priorities = priorities;
+            var project = {
+                Name: projectData.Name,
+                Description: projectData.Description,
+                ProjectKey: projectData.ProjectKey,
+                LeadId: projectData.LeadId,
+                Labels: projectData.Labels,
+                Priorities: Priorities
+            };
 
-            projectService.addProject(newProject)
+            projectService.addProject(project)
                 .then(function (success) {
                     console.log(success);
                     notifyService.showInfo('successfully created a project!');
@@ -61,5 +74,5 @@ app.controller('ProjectController', [
                     console.log(error);
                 })
         }
-        $scope.getProjects();
+
 }]);

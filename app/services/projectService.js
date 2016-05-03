@@ -3,9 +3,16 @@
 app.factory('projectService',['$http','baseServiceUrl','authenticationService',
     function ($http, baseServiceUrl,authenticationService) {
 
-    var projectService = {};
+        var projectService = {};
 
-        projectService.getAllProjects = function(params){
+        projectService.getAllProjects = function(){
+            return $http({
+                method: 'GET',
+                url: baseServiceUrl + 'Projects',
+                headers: authenticationService.getHeaders()
+            });
+        };
+        projectService.getProjectsPaging = function(params){
             return $http({
                 method: 'GET',
                 url: baseServiceUrl + 'projects?filter=&pageSize=' + params.pageSize + '&pageNumber=' + params.startPage,
@@ -22,8 +29,9 @@ app.factory('projectService',['$http','baseServiceUrl','authenticationService',
         };
 
         projectService.addProject = function(projectData){
+            console.log(projectData)
             return $http({
-                url : baseServiceUrl + "projects",
+                url : baseServiceUrl +'Projects',
                 method : "POST",
                 headers: authenticationService.getHeaders(),
                 data: projectData
