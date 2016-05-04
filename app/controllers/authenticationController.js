@@ -39,8 +39,13 @@ app.controller('AuthenticationController',[
         $scope.login = function (userData) {
             authenticationService.login(userData).then(
                 function success(serverData) {
-                    authenticationService.setCredentials(serverData.data);
-                    notifyService.showInfo('Successful login');
+                    var user = serverData.data;
+                    authenticationService.userInfo(user , user.access_token).then(function(data){
+
+                        user.isAdmin = data.data.isAdmin;
+                        authenticationService.setCredentials(user);
+                        notifyService.showInfo('Successful login');
+                    })
 
                 },
                 function error(error) {

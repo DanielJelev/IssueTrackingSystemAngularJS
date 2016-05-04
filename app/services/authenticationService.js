@@ -24,17 +24,10 @@ app.factory('authenticationService',
     authenticationService.getHeaders = function () {
         return {
             Authorization: "Bearer " + $localStorage.currentUser.access_token,
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'application/json'
         };
     };
 
-    authenticationService.getCurrentUserData = function () {
-        return $http({
-            method: 'GET',
-            url: baseServiceUrl + 'api/me',
-            headers: this.getHeaders()
-        })
-    };
 
     authenticationService.login = function (userData) {
         return $http({
@@ -79,14 +72,20 @@ app.factory('authenticationService',
             headers: this.getHeaders()
         });
     };
-    authenticationService.userInfo = function (userData) {
+    authenticationService.userInfo = function (userData,access_token) {
         return $http({
             method: 'GET',
-            url: baseServiceUrl + '/users/me',
+            url: baseServiceUrl + 'users/me',
             data: userData,
-            headers: this.getHeaders()
+            headers:{
+                Authorization: "Bearer "+access_token
+            }
         });
     };
-
+        authenticationService.isAdmin = function(){
+            if(this.isLoggedIn()){
+                return $localStorage.currentUser.isAdmin
+            }
+        }
     return authenticationService;
 }]);

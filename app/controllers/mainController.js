@@ -10,17 +10,4 @@ app.controller('MainController',[
 
         $scope.authService = authenticationService;
 
-        if(authenticationService.isLoggedIn()){
-            //debugger
-            var currentUser = $localStorage.currentUser;
-
-            authenticationService.userInfo(currentUser).then(function(userData){
-                $scope.userInfo = userData.data;
-            });
-
-            $scope.getIssuesForUser = function(){
-
-
-            }
-        }
 }]);

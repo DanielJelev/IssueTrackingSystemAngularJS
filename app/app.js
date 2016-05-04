@@ -31,7 +31,7 @@ app.config(['$routeProvider', function ($routeProvider) {
           controller: 'ProjectController'
       })
       .when('/project/:id', {
-        templateUrl: 'views/project/Edit-project.html',
+        templateUrl: 'views/project/edit-project.html',
         controller: 'ProjectController',
       })
       //.when('/profile/change-password', {

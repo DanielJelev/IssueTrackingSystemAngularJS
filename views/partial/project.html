@@ -1,17 +1,17 @@
 
-                <td>{{project.Id}}</td>
-                <td>{{project.Name}}</td>
-                <td class="col-md-4">{{project.Description|limitTo : 200 }}</td>
-                <td>{{project.Lead.Username}}</td>
-                <td class="col-md-1">
-                        <span class="label label-primary" ng-repeat="label in project.Labels">
-                            {{label.Name}}
-                    </span>
-                </td>
-                <td class="col-md-1">
-                        <span class="label label-success" ng-repeat="priority in project.Priorities">
-                            {{priority.Name}}
-                        </span>
-                </td>
+    <td>{{project.Id}}</td>
+    <td><a href="#/project/{{project.Id}}">{{project.Name}}</a></td>
+    <td class="col-md-4">{{project.Description|limitTo : 200 }}</td>
+    <td>{{project.Lead.Username}}</td>
+    <td class="col-md-1">
+            <span class="label label-primary" ng-repeat="label in project.Labels">
+                {{label.Name}}
+        </span>
+    </td>
+    <td class="col-md-1">
+            <span class="label label-success" ng-repeat="priority in project.Priorities">
+                {{priority.Name}}
+            </span>
+    </td>
 
 

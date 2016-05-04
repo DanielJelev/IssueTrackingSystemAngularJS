@@ -3,10 +3,13 @@
         <li><a href="#/">Issue Tracking System</a></li>
 
     </ul>
-    <ul  class="nav navbar-nav" ng-show="authService.isLoggedIn()">
+    <ul  class="nav navbar-nav navbar-left" ng-show="authService.isLoggedIn()">
         <li><a href="#/dashboard">Issue Tracking System</a></li>
-        <li><a href="#/projects">Projects</a></li>
+        <li ng-if="authService.isAdmin()"><a href="#/projects">Projects</a></li>
         <li><a href="#/" ng-click="logout()" >Logout</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="#/profile/password">Change password</a></li>
     </ul>
     <h2></h2>
 </nav>

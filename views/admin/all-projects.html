@@ -1,14 +1,11 @@
-
-
-
-
 <div ng-cloak>
-    <div class="text-center" ng-if="result.TotalPages > 0">
+    <div class="text-center" >
         <div class="container">
-            <uib-pagination total-items="result.TotalCount" ng-model="projectsParams.startPage"
-                            items-per-page="projectsParams.pageSize" ng-change="getProjects()"
-                            max-size="9" boundary-links="true" template-url="app/common/pagination.html">
+            <uib-pagination total-items="totalProjects" ng-model="projectParams.startPage"
+                            items-per-page="projectParams.pageSize" ng-change="getProjects()"
+                            max-size="9" boundary-links="true" template-url="views/pagination/pagination.html">
             </uib-pagination>
+            <input type="text" ng-model="search">Search
         </div>
     </div>
 

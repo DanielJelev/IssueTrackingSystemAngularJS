@@ -24,7 +24,6 @@ app.controller('ProjectController', [
         $scope.getProjects = function () {
             projectService.getProjectsPaging($scope.projectParams)
                 .then(function success(data){
-                    console.log(data)
                     $scope.totalProjects = data.data.TotalPages * $scope.projectParams.pageSize;
                     $scope.projects = data.data.Projects;
 
@@ -39,18 +38,16 @@ app.controller('ProjectController', [
             projectService.getProjectById($routeParams.id)
                 .then(function success(data){
                     $scope.project = data.data;
-                    console.log(data.data)
                 },function error(err){
                     $location.path("/")
                 });
         };
 
         $scope.addNewProjects = function (projectData) {
-            projectData.Labels = [];
             var Priorities = [];
 
 
-            projectData.priorities.split(", ").forEach(function(p) {
+            projectData.priorities.split(",").forEach(function(p) {
 
                     Priorities.push({ Name: p.trim() });
 
@@ -61,15 +58,14 @@ app.controller('ProjectController', [
                 Description: projectData.Description,
                 ProjectKey: projectData.ProjectKey,
                 LeadId: projectData.LeadId,
-                Labels: projectData.Labels,
-                Priorities: Priorities
+                priorities: Priorities
             };
 
             projectService.addProject(project)
                 .then(function (success) {
-                    console.log(success);
                     notifyService.showInfo('successfully created a project!');
                     $scope.newProject = {};
+                    $location.path("/project/"+success.data.Id)
                 },function (error) {
                     console.log(error);
                 })

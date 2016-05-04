@@ -1,70 +1,74 @@
+<div class="panel panel-primary container col-md-5 well bs-component col-md-offset-3 border">
+    <div class="panel-heading">
+        <h3 class="panel-title">Edit project</h3>
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal" name="editProjectForm">
+            <fieldset>
+                <legend>Project details</legend>
+                <div class="form-group">
+                    <label for="name" class="col-md-4 control-label">Name</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="project.Name" id="name" disabled="disabled">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="description" class="col-md-4 control-label">Project description</label>
+                    <div class="col-md-8">
+                        <textarea class="form-control" ng-model="project.Description" id="description"
+                                  placeholder="Project description" required="required"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="key" class="col-md-4 control-label">Project key</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="project.ProjectKey" id="key"
+                               disabled="disabled">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="leadUsername" class="col-md-4 control-label">Lead</label>
+                    <div class="col-md-8" ng-cloak>
 
-<div class=jumbotron style="height:1000px; padding-left: 10px;" ng-controller="ProjectController">
-<h2 style="margin-top: 0"> Edit Project</h2>
-<div>
-  <form style="width:48%" class="pull-left">
-  <div class="form-group">
-      <label for="exampleInputEmail1">Name</label>
-      <input type="text" class="form-control" id="exampleInputEmail1" value="{{project.Name}}">
+                        <input id="leadUsername" type="text" ng-model="project.Lead.Id"
+                               placeholder="Lead username"
+                               uib-typeahead="user.Id as user.Username for user in users | filter:$viewValue | limitTo:8"
+                               typeahead-loading="loadingUsers" typeahead-no-results="noResults"
+                               typeahead-input-formatter="formatLead($model)" class="form-control" required="required"
+                               ng-value="project.Lead.Username">
+
+                        <i ng-show="loadingUsers" class="glyphicon glyphicon-refresh"></i>
+                        <div ng-show="noResults">
+                            <i class="glyphicon glyphicon-remove"></i> No Results Found
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="labels" class="col-md-4 control-label">Labels (separated by comma)</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="project.Labels" id="labels"
+                               placeholder="Project labels" required="required">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="priorities" class="col-md-4 control-label">Priorities (separated by comma)</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" ng-model="project.Priorities" id="priorities"
+                               placeholder="Project priorities" required="required">
+                    </div>
+                </div>
+                <!--</div>-->
+                <div class="form-group">
+                    <div class="col-md-8 col-md-offset-2">
+                        <button type="submit" class="btn btn-success btn-lg btn-bloc" ng-click="editProject(project)">
+                            Edit project
+                        </button>
+                        <button type="reset" class="btn btn-danger btn-lg btn-bloc"
+                                ng-click="cancel()">Cancel
+                        </button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
     </div>
-    <div class="form-group">
-      <label for="exampleInputEmail1">Leader</label>
-      <select class="form-control">
-      	<div ng-repeat="lead in project">
-          <option value="{{lead}}">Name</option>
-        </div>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="exampleInputEmail1">Project Key</label>
-      <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Project Key" value="123qwe">
-    </div>
-    <div class="form-group">
-      <label for="exampleInputPassword1">Priorities (comma separated)</label>
-      <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Available Priorities For The Issues" value="Low, Medium, Urgent">
-    </div>
-     <div class="form-group">
-      <label for="exampleInputPassword1">Labels (comma separated)</label>
-      <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Labels" value="Softuni, software">
-      <br>
-    </div>
-     <div class="form-group">
-      <label for="exampleInputPassword1">Description</label>
-      <textarea class="form-control" placeholder="Description">Project for managing issues for specific projects with priorities, status transitions and labels</textarea>
-    </div>
-    <button type="submit" class="btn btn-success">Edit Project</button>
-  </form>
-  <form style="width:48%" class="pull-right">
-  <h3>Status transition scheme</h3>
-    <ul id="statuses">
-      <li>Open <button class="btn btn-sm btn-info">add element</button> <button class="btn btn-sm btn-info">add child element</button></li>
-      <li>
-      In Progress <button class="btn btn-sm btn-info">add element</button> <button class="btn btn-sm btn-info">add child element</button>
-        <ul>
-          <li>
-            Closed <button class="btn btn-sm btn-info">add element</button> <button class="btn btn-sm btn-info">add child element</button>
-          </li>
-        </ul>
-      </li>
-      <li>
-      Resolved <button class="btn btn-sm btn-info">add element</button> <button class="btn btn-sm btn-info">add child element</button>
-        <ul>
-          <li>
-            Closed <button class="btn btn-sm btn-info">add element</button> <button class="btn btn-sm btn-info">add child element</button>
-          </li>
-        </ul>
-        <ul>
-              <li>
-          Reopened <button class="btn btn-sm btn-info">add element</button> <button class="btn btn-sm btn-info">add child element</button>
-          <ul>
-              <li>
-                Closed <button class="btn btn-sm btn-info">add element</button> <button class="btn btn-sm btn-info">add child element</button>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </form>
-  </div>
-  </div>
+</div>
