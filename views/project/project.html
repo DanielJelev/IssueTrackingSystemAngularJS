@@ -1,33 +1,59 @@
+<div class="container col-md-6">
 
-<h1>Projects</h1>
-<div ng-controller="ProjectController">
-    <div class="container">
-       <div class="col-md-10">
-           <table class="table table-striped" width="200">
-               <thead>
-               <tr>
-                   <th>Title</th>
-                   <th>Description</th>
-                   <th>Due Date</th>
-                   <th>Assignee</th>
-               </tr>
-               </thead>
-               <tbody>
-               <tr ng-repeat="project in projects">
-                   <th><a href="#/project/{{project.Id}}">{{project.Name}}</a></th>
-                   <th>{{project.Description}}</th>
-                   <th>{{project.Name}}</th>
-                   <th>{{project.Lead.Username}}</th>
-               </tr>
+    <div class="panel panel-primary well bs-component col-md-offset-1 border">
+        <div class="panel-heading">
+            <h3 class="panel-title">Project details:</h3>
+        </div>
 
-               </tbody>
-           </table>
-       </div>
+        <fieldset>
+            <legend>{{newProject.Name}}</legend>
+            <div class="panel-body">
+                <div>
+                    <span><strong>Id:</strong> {{newProject.Id}}</span>
+                </div>
+                <div>
+                    <span><strong>Description:</strong> {{newProject.Description}}</span>
+                </div>
+                <div>
+                    <span><strong>Lead:</strong> {{newProject.Lead.Username}}</span>
+                </div>
+                <div>
+                    <span><strong>Transition Scheme Id:</strong> {{newProject.TransitionSchemeId}}</span>
+                </div>
+                <div ng-if="newProject.Labels.length > 0">
+                    <span><strong>Labels:</strong></span> <span id="labels" ng-repeat="label in newProject.Labels">{{label.Name}}; </span>
+                </div>
+
+                <div ng-if="newProject.Priorities.length > 0">
+                    <span><strong>Priorities</strong></span>
+                    <span ng-repeat="priority in issue.Priorities">{{priority.Name}}; </span>
+                </div>
+            </div>
+        </fieldset>
     </div>
-    <pagination
-                total-items="totalProjects" ng-model="projectParams.startPage"
-                items-per-page="projectParams.pageSize" ng-change="getProjects()"
-                max-size="9" boundary-links="true"
-                class="aligner">
-    </pagination>
+    <div class="text-center">
+        <button class="btn btn-default glyphicon glyphicon-arrow-left" back> Back</button>
+        <span ng-if="$parent.currentUser.isAdmin||$parent.currentUser.Id===project.Lead.Id" ng-cloak>
+            <button class="btn btn-primary" ng-click="addIssue(project.Id)">
+                Add Issue
+            </button>
+            <button class="btn btn-warning" ng-click="editProject(project.Id)">
+                Edit Project
+            </button>
+            <button class="btn btn-danger" ng-click="deleteProject()" disabled="disabled">Delete project</button>
+        </span>
+    </div>
+    <br/>
+</div>
+
+<div class="container col-md-6 well" ng-show="newProject.issues.length > 0">
+    <div class="list-group">
+        <div class="list-group-item active glyphicon glyphicon-exclamation-sign">
+            <span>Issues</span>
+        </div>
+
+        <a href="#/issues/{{issue.Id}}" class="list-group-item" ng-repeat="issue in newProject.issues">{{issue.Title}}
+            <span class="badge">{{issue.Labels.length}}</span>
+        </a>
+    </div>
 </div>

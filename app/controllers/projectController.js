@@ -32,8 +32,6 @@ app.controller('ProjectController', [
         $scope.getProjects();
 
 
-
-
         $scope.getProjectById = function(id){
             projectService.getProjectById($routeParams.id)
                 .then(function success(data){
@@ -64,11 +62,19 @@ app.controller('ProjectController', [
             projectService.addProject(project)
                 .then(function (success) {
                     notifyService.showInfo('successfully created a project!');
-                    $scope.newProject = {};
                     $location.path("/project/"+success.data.Id)
                 },function (error) {
                     console.log(error);
                 })
-        }
+        };
+
+
+            $scope.getProject = function(){
+                projectService.getProjectById($routeParams.id)
+                    .then(function(data){
+                        $scope.newProject = data.data;
+                    })
+            }
+
 
 }]);

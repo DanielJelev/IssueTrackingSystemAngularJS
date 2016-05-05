@@ -43,6 +43,9 @@ app.factory('authenticationService',
         return $http({
             method: 'POST',
             url: baseServiceUrl + 'api/Account/Register',
+            headers:{
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
             data: userData
         })
     };

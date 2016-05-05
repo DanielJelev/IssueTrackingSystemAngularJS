@@ -7,7 +7,7 @@ app.factory('issueService',['$http','baseServiceUrl','authenticationService' ,
 
         issueService.getAllProjectIssues = function(projectId){
             return $http({
-                url : baseServiceUrl + "/Project/"+projectId+ '/Issues',
+                url : baseServiceUrl + "Projects/"+projectId+ '/Issues',
                 method : "GET",
                 headers: authenticationService.getHeaders()
             });
