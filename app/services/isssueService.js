@@ -5,6 +5,17 @@ app.factory('issueService',['$http','baseServiceUrl','authenticationService' ,
 
         var issueService = {};
 
+        issueService.userIssues = function(params){
+            return $http({
+                url: baseServiceUrl +
+                'issues/me?orderBy=DueDate desc, IssueKey&pageSize=' +
+                params.pageSize + '&pageNumber=' +
+                params.startPage,
+                method : "GET",
+                headers: authenticationService.getHeaders()
+            })
+        };
+
         issueService.getAllProjectIssues = function(projectId){
             return $http({
                 url : baseServiceUrl + "Projects/"+projectId+ '/Issues',
@@ -22,9 +33,9 @@ app.factory('issueService',['$http','baseServiceUrl','authenticationService' ,
             });
         };
 
-        issueService.addProject = function(issueData){
+        issueService.addIssue = function(issueData){
             return $http({
-                url : baseServiceUrl + "/Issues/",
+                url : baseServiceUrl + "issues",
                 method : "POST",
                 headers: authenticationService.getHeaders(),
                 data : issueData
@@ -42,7 +53,7 @@ app.factory('issueService',['$http','baseServiceUrl','authenticationService' ,
 
         issueService.editIssue= function(issueData,id){
             return $http({
-                url : baseServiceUrl +"/Issues/"+id,
+                url : baseServiceUrl +"Issues/"+id,
                 method : "PUT",
                 headers: authenticationService.getHeaders(),
                 data : issueData

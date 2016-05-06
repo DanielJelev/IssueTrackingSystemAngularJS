@@ -1,64 +1,76 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Dashboard</title>
-</head>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-<body>
-<div class=jumbotron>
-<h2 style="margin-top: 0"> Add new Issue</h2>
-<form>
 <div class="form-group">
-    <label for="exampleInputEmail1">Title</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Issue Title">
-  </div>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Assignee</label>
-    <select class="form-control">
-    	<option>Kircho</option>
-    	<option>Petkancho</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Project</label>
-    <select class="form-control">
-      <option>SIT</option>
-      <option>Cart Management</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Issue Key</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Issue Key">
-  </div>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Priority</label>
-    <select class="form-control">
-      <option>Urgent</option>
-      <option>Medium</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Due Date</label>
-    <input type="date" class="form-control" id="exampleInputEmail1" placeholder="dd/mm/yyyy">
-  </div>
-   <div class="form-group">
-    <label for="exampleInputPassword1">Labels (comma separated)</label>
-    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Labels" value="Soft">
-    <br>
-  </div>
-   <div class="form-group">
-    <label for="exampleInputPassword1">Description</label>
-    <textarea class="form-control" placeholder="Description"></textarea>
-  </div>
-  <button type="submit" class="btn btn-success">Add Issue</button>
-</form>
+    <label for="assignee">Assignee</label>
+    <div class="controls">
+        <select class="form-control" id="assignee" name="assignee" ng-model="issueData.AssigneeId">
+            <option selected="selected">
+                {{issueData.Assignee.Username}}
+            </option>
+            <option ng-repeat="user in users | orderBy: 'Username'" value="{{user.Id}}">
+                {{user.Username}}
+            </option>
+        </select>
+    </div>
 </div>
-</body>
-</html>
+
+<div class="form-group" >
+    <label for="project">Project</label>
+    <div class="controls">
+
+        <select class="form-control" id="project" name="project" ng-model="issueData.ProjectId" ng-change="getPriorities()">
+            <option ng-repeat="project in projects | orderBy: 'Name'" value="{{project.Id}}">
+                {{project.Name}}
+            </option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="control-label" for="dueDate">Due Date</label>
+    <div class="controls">
+        <input class="form-control" type="date" id="dueDate" name="dueDate" ng-model="issueData.DueDate" />
+    </div>
+</div>
+
+<div class="form-group" >
+    <label for="priority">Priority</label>
+    <div class="controls">
+        <select class="form-control" id="priority" name="priority" ng-model="issueData.PriorityId">
+            <option>{{issueData.Priority.Name}}</option>
+            <option  ng-repeat="priority in priorities" value="{{priority.Id}}">
+                {{priority.Name}}
+            </option>
+        </select>
+
+
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="labels">Labels</label>
+    <input type="text" class="form-control" id="labels" placeholder="Labels" ng-model="issueData.StringLabels" ng-keyup="getLabels()">
+    <div ng-if="labels.length > 0" class="label-holder">
+        <div ng-repeat="label in labels" ng-click="addLabel(label)" class="label-option">{{label.Name}}</div>
+    </div>
+    <br>
+</div>
+
+<div class="form-group">
+    <label class="control-label" for="title">Title</label>
+    <div class="controls">
+        <input type="text" class="form-control" id="title" name="title" placeholder="Title" ng-model="issueData.Title">
+
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="description">Description</label>
+    <div class="controls">
+        <textarea rows="5" class="form-control" placeholder="Description" id="description" name="description" ng-model="issueData.Description">{{issueData.Description}}</textarea>
+
+    </div>
+</div>
+<div class="form-group text-center">
+    <div class="col-md-13">
+        <button type="submit" class="btn btn-success" ng-click="addIssue(issueData)">Add Issue</button>
+    </div>
+</div>
