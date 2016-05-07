@@ -6,6 +6,7 @@
     <ul  class="nav navbar-nav navbar-left" ng-show="authService.isLoggedIn()">
         <li><a href="#/dashboard">Issue Tracking System</a></li>
         <li ng-if="authService.isAdmin()"><a href="#/projects">Projects</a></li>
+        <li ng-if="authService.isAdmin()"><a href="#/users">Users</a></li>
         <li><a href="#/" ng-click="logout()" >Logout</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">

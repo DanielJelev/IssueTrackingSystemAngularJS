@@ -44,7 +44,7 @@ app.factory('authenticationService',
             method: 'POST',
             url: baseServiceUrl + 'api/Account/Register',
             headers:{
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Type': 'application/json'
             },
             data: userData
         })
@@ -69,7 +69,7 @@ app.factory('authenticationService',
 
     authenticationService.changePassword = function (userData) {
         return $http({
-            method: 'PUT',
+            method: 'POST',
             url: baseServiceUrl + 'api/Account/changepassword',
             data: userData,
             headers: this.getHeaders()

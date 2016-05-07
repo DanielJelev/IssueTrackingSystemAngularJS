@@ -1,0 +1,56 @@
+<div class="container col-md-6">
+    <div class="panel panel-success">
+        <div class="panel-body">Project</div>
+        <fieldset>
+            <legend>Name : {{issue.Title}}</legend>
+            <div class="panel-body">
+                <div>
+                    <span><strong>Description:</strong> {{issue.Description}}</span>
+                </div>
+                <div>
+                    <span><strong>Assigne Id:</strong> {{issue.Assignee.Id}}</span>
+                    <span><strong>Assigne Username:</strong> {{issue.Assignee.Username}}</span>
+                </div>
+                <div>
+                    <span><strong>Priority Id: </strong> {{issue.Priority.Id}}</span>
+                    <span><strong>Priority Id:</strong> {{issue.Priority.Name}}</span>
+                </div>
+                <div>
+                    <span><strong>DueDate: </strong> {{issue.DueDate}}</span>
+                </div>
+                <div>
+                    <span><strong>Author: </strong> {{issue.Author.Username}}</span>
+                </div>
+                <div>
+                    <span><strong>Project: </strong> {{issue.Project.Name}}</span>
+                </div>
+                <div>
+                    <span><strong>Status: </strong> {{issue.Status.Name}}</span>
+                </div>
+
+                <div ng-if="issue.Labels.length > 0">
+                    <span><strong>Labels:</strong></span> <span id="labels" ng-repeat="label in issue.Labels">{{label.Name}}; </span>
+                </div>
+
+                <div ng-if="newProject.Priorities.length > 0">
+                    <span><strong>Priorities</strong></span>
+                    <span ng-repeat="priority in issue.Priorities">{{priority.Name}}; </span>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+
+
+</div>
+<div class="container col-md-6">
+    <div class="panel panel-warning">
+        <div class="panel-body"><strong>Available statuses</strong></div>
+        <div class="list-group">
+
+            <a href="#/issues/{{issue.Id}}" class="list-group-item" ng-repeat="issue in newProject.issues">{{issue.Title}}
+            </a>
+        </div>
+    </div>
+
+</div>
+

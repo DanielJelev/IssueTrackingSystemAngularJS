@@ -38,9 +38,9 @@ app.factory('projectService',['$http','baseServiceUrl','authenticationService',
             });
         };
 
-        projectService.editProject = function(id , projectData){
+        projectService.editProject = function(id,projectData){
             return $http({
-                url : baseServiceUrl + "api/Project/"+id,
+                url : baseServiceUrl + "Project/"+id,
                 method : "PUT",
                 headers: authenticationService.getHeaders(),
                 data : projectData

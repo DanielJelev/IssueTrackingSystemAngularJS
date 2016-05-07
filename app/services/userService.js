@@ -22,5 +22,12 @@ app.factory('userService',[
             headers: authenticationService.getHeaders()
         });
     };
+        userService.getAllUsersPaging= function (params) {
+            return $http({
+                method: 'GET',
+                url: baseServiceUrl + 'users?filter=&pageSize=' + params.pageSize + '&pageNumber=' + params.startPage,
+                headers: authenticationService.getHeaders()
+            })
+        };
         return userService;
 }]);

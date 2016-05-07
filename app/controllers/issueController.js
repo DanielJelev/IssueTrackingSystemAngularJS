@@ -9,19 +9,21 @@ app.controller('IssueController', [
     'notifyService',
     'pageSize',
     function ($scope,$routeParams, $location, issueService,userService, projectService,lableService,notifyService,pageSize) {
-
+        $scope.loading = true;
         userService.getAllUsers()
             .then(function (success) {
                 $scope.users = success.data.sort(function (a, b) {
                     return a.Username.localeCompare(b.Username);
-                })
+
+                });
+                $scope.loading = false;
             });
         projectService.getAllProjects()
             .then(function(success){
                 $scope.projects = success.data.sort(function (a, b) {
                     return a.Name.localeCompare(b.Name);
                 })
-            })
+            });
         $scope.getPriorities = function(){
             var project = $scope.projects.filter(function(a){
                 return a.Id == $scope.issueData.ProjectId
@@ -45,7 +47,7 @@ app.controller('IssueController', [
                     $scope.labels = [];
                 }
             }
-        }
+        };
         $scope.addLabel =function (label) {
             var lastComma = $scope.issueData.StringLabels.lastIndexOf(',');
             if (lastComma !== -1) {
@@ -76,10 +78,29 @@ app.controller('IssueController', [
                 PriorityId: issueData.PriorityId,
                 Labels: Labels
             };
-            console.log(issue)
             issueService.addIssue(issue).then(function(data){
-                $location.path('/issues/' + data.Id)
+                $location.path('/issues/' + data.data.Id)
             })
         }
+
+    }]);
+
+
+app.controller('ViewIssueController', [
+    '$scope',
+    '$routeParams',
+    '$location',
+    'issueService',
+    'projectService',
+    'notifyService',
+    function ($scope,$routeParams, $location,issueService, projectService,notifyService) {
+
+
+        issueService.getIssueById($routeParams.id)
+            .then(function(data){
+                $scope.issue = data.data;
+                console.log(data.data)
+            })
+
 
     }]);

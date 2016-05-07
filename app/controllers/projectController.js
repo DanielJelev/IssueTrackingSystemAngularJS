@@ -8,7 +8,7 @@ app.controller('ProjectController', [
     'notifyService',
     'pageSize',
     function ($scope,$routeParams, $location, authenticationService,userService, projectService,notifyService,pageSize) {
-
+        $scope.authService = authenticationService;
         $scope.projectParams = {
             'startPage': 1,
             'pageSize': pageSize
@@ -32,7 +32,7 @@ app.controller('ProjectController', [
         $scope.getProjects();
 
 
-        $scope.getProjectById = function(id){
+        $scope.getProjectById = function(){
             projectService.getProjectById($routeParams.id)
                 .then(function success(data){
                     $scope.project = data.data;
@@ -66,15 +66,78 @@ app.controller('ProjectController', [
                 },function (error) {
                     console.log(error);
                 })
+             };
+
+        $scope.getProject = function(){
+
+            projectService.getProjectById($routeParams.id)
+                .then(function(data){
+                    $scope.newProject = data.data;
+                })
         };
 
+        $scope.editProject = function(editProject){
+            projectService.getProjectById($routeParams.id).then(function(data){
+                var Priorities = [];
+                var Labels = [];
 
-            $scope.getProject = function(){
-                projectService.getProjectById($routeParams.id)
-                    .then(function(data){
-                        $scope.newProject = data.data;
-                    })
-            }
+
+                editProject.priorities.split(",").forEach(function(p) {
+
+                    Priorities.push({ Name: p.trim() });
+
+                });
+
+
+
+                editProject.StringLabels.split(",").forEach(function(p) {
+
+                    Labels.push({ Name: p.trim() });
+
+                });
+
+                var project = {
+                    Name: editProject.Name,
+                    Description: editProject.Description,
+                    LeadId: editProject.LeadId,
+                    priorities: Priorities,
+                    labels: Labels,
+                };
+                projectService.editProject($routeParams.id,project)
+                    .then(function success(){
+                            $location.path('/project/'+$routeParams.id);
+                            notifyService.showInfo("Successful edited project");
+                        },
+                        function error(error){
+                            notifyService.showError("Failed to edit project");
+                        });
+            })
+
+        }
+
 
 
 }]);
+app.controller('ViewProjectController', [
+    '$scope',
+    '$routeParams',
+    '$location',
+    'issueService',
+    'projectService',
+    'notifyService',
+    function ($scope,$routeParams, $location,issueService, projectService,notifyService) {
+
+
+        projectService.getProjectById($routeParams.id)
+            .then(function(data){
+                $scope.newProject = data.data;
+
+                issueService.getAllProjectIssues($routeParams.id)
+                    .then(function(data){
+                        $scope.newProject.issues = data.data;
+                    })
+
+            })
+
+
+    }]);

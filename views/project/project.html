@@ -1,16 +1,9 @@
 <div class="container col-md-6">
-
-    <div class="panel panel-primary well bs-component col-md-offset-1 border">
-        <div class="panel-heading">
-            <h3 class="panel-title">Project details:</h3>
-        </div>
-
+    <div class="panel panel-success">
+        <div class="panel-body">Project</div>
         <fieldset>
-            <legend>{{newProject.Name}}</legend>
+            <legend>Name : {{newProject.Name}}</legend>
             <div class="panel-body">
-                <div>
-                    <span><strong>Id:</strong> {{newProject.Id}}</span>
-                </div>
                 <div>
                     <span><strong>Description:</strong> {{newProject.Description}}</span>
                 </div>
@@ -31,29 +24,21 @@
             </div>
         </fieldset>
     </div>
-    <div class="text-center">
-        <button class="btn btn-default glyphicon glyphicon-arrow-left" back> Back</button>
-        <span ng-if="$parent.currentUser.isAdmin||$parent.currentUser.Id===project.Lead.Id" ng-cloak>
-            <button class="btn btn-primary" ng-click="addIssue(project.Id)">
-                Add Issue
-            </button>
-            <button class="btn btn-warning" ng-click="editProject(project.Id)">
-                Edit Project
-            </button>
-            <button class="btn btn-danger" ng-click="deleteProject()" disabled="disabled">Delete project</button>
-        </span>
-    </div>
-    <br/>
+
+   <div ng-if="authService.isAdmin()">
+       <a href="#/project/{{newProject.Id}}/edit" class="btn btn-success" >Edit Project</a>
+       <a href="#/project/{{newProject.Id}}/add-issue" class="btn btn-success" >Add Issue</a>
+   </div>
 </div>
 
-<div class="container col-md-6 well" ng-show="newProject.issues.length > 0">
-    <div class="list-group">
-        <div class="list-group-item active glyphicon glyphicon-exclamation-sign">
-            <span>Issues</span>
+<div class="container col-md-6" ng-show="newProject.issues.length > 0">
+    <div class="panel panel-warning">
+        <div class="panel-body"><strong>Issues</strong></div>
+        <div class="list-group">
+
+            <a href="#/issues/{{issue.Id}}" class="list-group-item" ng-repeat="issue in newProject.issues">{{issue.Title}}
+            </a>
         </div>
-
-        <a href="#/issues/{{issue.Id}}" class="list-group-item" ng-repeat="issue in newProject.issues">{{issue.Title}}
-            <span class="badge">{{issue.Labels.length}}</span>
-        </a>
     </div>
 </div>
+

@@ -10,24 +10,18 @@ app.controller('AuthenticationController',[
 
         $scope.isLogged = authenticationService.isLoggedIn();
 
-        if ($scope.isLogged) {
-            $scope.userData = function () {
-                authenticationService.getCurrentUserData()
-                    .then( function (userData) {
-
-                    },
-                    function (error) {
-                        console.log(error)
-                    }
-                );
-            }
-        }
-
         $scope.register = function (userData) {
             authenticationService.register(userData).then(
-                function success(serverData) {
-                    authenticationService.setCredentials(serverData.data);
-                    notifyService.showInfo('Successful register');
+                function success() {
+                    var userLogin = {
+                        Username: userData.Email,
+                        Password:userData.Password
+                    };
+                    authenticationService.login(userLogin).then(function (serverData) {
+                        authenticationService.setCredentials(serverData.data);
+                        notifyService.showInfo('Successful register');
+                    })
+
 
                 },
                 function error(error) {
@@ -66,28 +60,15 @@ app.controller('AuthenticationController',[
             );
         };
 
-        $scope.editProfile = function (userData) {
-
-            authenticationService.editProfile(data).then(
-                function success() {
-
-                    $location.path('/');
-                },
-                function error(error) {
-
-                }
-            );
-        };
 
         $scope.changePassword = function (userData) {
-
             authenticationService.changePassword(userData).then(
                 function success() {
-
+                    notifyService.showInfo('Successful password changed!');
                     $location.path('/');
                 },
-                function error(error) {
-
+                function error(err) {
+                    notifyService.showInfo('Failed to change password'+err)
                 }
             )
         }

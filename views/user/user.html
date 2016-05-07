@@ -1,0 +1,15 @@
+<div>
+    <div class="form-group" >
+        <label for="user">Users</label>
+        <div class="controls">
+
+            <select class="form-control" id="user" name="project" ng-model="userData.UserId">
+                <option ng-repeat="user in users | orderBy: 'Name'" value="{{user.Id}}">
+                    {{user.Username}}
+                </option>
+            </select>
+            <button class="btn btn-success" ng-click="makeAdmin(userData)">Make admin</button>
+        </div>
+    </div>
+
+</div>

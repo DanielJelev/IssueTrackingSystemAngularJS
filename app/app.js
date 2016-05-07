@@ -22,6 +22,10 @@ app.config(['$routeProvider', function ($routeProvider) {
         templateUrl: 'views/user/register.html',
         controller: 'AuthenticationController'
       })
+      .when('/users', {
+          templateUrl: 'views/user/user.html',
+          controller: 'UserController'
+      })
       .when('/projects', {
           templateUrl: 'views/admin/all-projects.html',
           controller: 'ProjectController'
@@ -32,33 +36,33 @@ app.config(['$routeProvider', function ($routeProvider) {
       })
       .when('/project/:id', {
         templateUrl: 'views/project/project.html',
-        controller: 'ViewProjectController',
+        controller: 'ViewProjectController'
+      })
+      .when('/project/:id/edit', {
+          templateUrl: 'views/project/edit-project.html',
+          controller: 'ProjectController'
+      })
+      .when('/project/:id/add-issue', {
+          templateUrl: 'views/project/add-project-issue.html',
+          controller: 'IssueController'
       })
       .when('/projects/add-issue', {
           templateUrl: 'views/issue/add-new-issue.html',
-          controller: 'IssueController',
+          controller: 'IssueController'
+      })
+      .when('/project/:id/issue', {
+          templateUrl: 'views/issue/add-project-issue.html',
+          controller: 'IssueController'
       })
 
-      //.when('/profile/change-password', {
-      //  templateUrl: 'views/user/change-password.html',
-      //  controller: 'MainController'
-      //})
-      //.when('/users/:username/', {
-      //  templateUrl: 'views/user/user-wall.html',
-      //  controller: 'MainController'
-      //})
-      //.when('/friends/requests/', {
-      //  templateUrl: 'views/friend-requests.html',
-      //  controller: 'MainController'
-      //})
-      //.when('/users/:username/friends/', {
-      //  templateUrl: 'views/user/user-all-friends.html',
-      //  controller: 'MainController'
-      //})
-      //.when('/me/friends/', {
-      //  templateUrl: 'views/user/all-own-friends.html',
-      //  controller: 'MainController'
-      //})
+      .when('/profile/password', {
+        templateUrl: 'views/user/change-password.html',
+        controller: 'AuthenticationController'
+      })
+      .when('/issues/:id', {
+        templateUrl: 'views/issue/issue.html',
+        controller: 'ViewIssueController'
+      })
       .otherwise({
         redirectTo: '/'
       });

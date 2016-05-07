@@ -1,74 +1,80 @@
-<div class="panel panel-primary container col-md-5 well bs-component col-md-offset-3 border">
-    <div class="panel-heading">
-        <h3 class="panel-title">Edit project</h3>
-    </div>
-    <div class="panel-body">
-        <form class="form-horizontal" name="editProjectForm">
-            <fieldset>
-                <legend>Project details</legend>
-                <div class="form-group">
-                    <label for="name" class="col-md-4 control-label">Name</label>
-                    <div class="col-md-8">
-                        <input type="text" class="form-control" ng-model="project.Name" id="name" disabled="disabled">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="description" class="col-md-4 control-label">Project description</label>
-                    <div class="col-md-8">
-                        <textarea class="form-control" ng-model="project.Description" id="description"
-                                  placeholder="Project description" required="required"></textarea>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="key" class="col-md-4 control-label">Project key</label>
-                    <div class="col-md-8">
-                        <input type="text" class="form-control" ng-model="project.ProjectKey" id="key"
-                               disabled="disabled">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="leadUsername" class="col-md-4 control-label">Lead</label>
-                    <div class="col-md-8" ng-cloak>
+<div class="col-md-7 center border" ng-controller="ProjectController" >
+    <form name="addProjectForm" class="form-horizontal">
 
-                        <input id="leadUsername" type="text" ng-model="project.Lead.Id"
-                               placeholder="Lead username"
-                               uib-typeahead="user.Id as user.Username for user in users | filter:$viewValue | limitTo:8"
-                               typeahead-loading="loadingUsers" typeahead-no-results="noResults"
-                               typeahead-input-formatter="formatLead($model)" class="form-control" required="required"
-                               ng-value="project.Lead.Username">
+        <div class="form-group text-center">
+            <h3>Edit Project</h3>
+        </div>
+        <div class="form-group">
+            <label for="Name" class="col-sm-2 control-label">Name</label>
+            <div class="col-sm-10">
+                <input type="text"
+                       class="form-control"
+                       id="Name"
+                       placeholder="Name"
+                       ng-model="newProject.Name"
+                       required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Description" class="col-sm-2 control-label">Description</label>
+            <div class="col-sm-10">
+                <textarea type="text"
+                          class="form-control"
+                          id="Description"
+                          placeholder="Description"
+                          ng-model="newProject.Description"
+                          required></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="ProjectKey" class="col-sm-2 control-label">Project Key</label>
+            <div class="col-sm-10">
+                <input type="text"
+                       class="form-control"
+                       id="ProjectKey"
+                       placeholder="ProjectKey"
+                       ng-model="newProject.ProjectKey"
+                       required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="LeaderId" class="col-sm-2 control-label">Leader</label>
 
-                        <i ng-show="loadingUsers" class="glyphicon glyphicon-refresh"></i>
-                        <div ng-show="noResults">
-                            <i class="glyphicon glyphicon-remove"></i> No Results Found
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="labels" class="col-md-4 control-label">Labels (separated by comma)</label>
-                    <div class="col-md-8">
-                        <input type="text" class="form-control" ng-model="project.Labels" id="labels"
-                               placeholder="Project labels" required="required">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="priorities" class="col-md-4 control-label">Priorities (separated by comma)</label>
-                    <div class="col-md-8">
-                        <input type="text" class="form-control" ng-model="project.Priorities" id="priorities"
-                               placeholder="Project priorities" required="required">
-                    </div>
-                </div>
-                <!--</div>-->
-                <div class="form-group">
-                    <div class="col-md-8 col-md-offset-2">
-                        <button type="submit" class="btn btn-success btn-lg btn-bloc" ng-click="editProject(project)">
-                            Edit project
-                        </button>
-                        <button type="reset" class="btn btn-danger btn-lg btn-bloc"
-                                ng-click="cancel()">Cancel
-                        </button>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
-    </div>
+            <div class="col-sm-10">
+                <select class="form-control"
+                        id="LeaderId"
+                        ng-model="newProject.LeadId"
+                        ng-options="user.Id as user.Username for user in users"
+                        required>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Priorities" class="col-sm-2 control-label">Priorities</label>
+            <div class="col-sm-10">
+                <input type="text"
+                       class="form-control"
+                       id="Priorities"
+                       placeholder="Priorities"
+                       ng-model="newProject.priorities"
+                       required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="StringLabels" class="col-sm-2 control-label">Labels</label>
+            <div class="col-sm-10">
+                <input type="text"
+                       class="form-control"
+                       id="StringLabels"
+                       placeholder="Labels"
+                       ng-model="newProject.StringLabels"
+                       required>
+            </div>
+        </div>
+        <div class="form-group text-center">
+            <div class="col-md-13">
+                <button type="submit" class="btn btn-success" ng-click="editProject(newProject)">Add Project</button>
+            </div>
+        </div>
+    </form>
 </div>
