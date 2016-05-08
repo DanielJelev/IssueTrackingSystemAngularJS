@@ -1,35 +1,37 @@
-<div class="jumbotron" ng-controller="MainController">
-<h1>Dashboard</h1>
-<div ng-if="length> 0">
-	<table class="table table-striped">
-		<thead>
-		<tr>
-			<td>Issue</td>
-			<td>Project</td>
-			<td>Due Date</td>
-		</tr>
-		</thead>
-		<tbody>
-		<tr ng-issue-view ng-repeat="issue in main.issues">
+<div class="container">
+	<div class="jumbotron" ng-controller="MainController">
+		<h1>Dashboard</h1>
+		<div ng-if="length> 0">
+			<table class="table table-striped">
+				<thead>
+				<tr>
+					<td>Issue</td>
+					<td>Project</td>
+					<td>Due Date</td>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-issue-view ng-repeat="issue in main.issues">
 
-		</tr>
+				</tr>
 
 
-		</tbody>
+				</tbody>
 
-	</table>
-	<div class="row text-center">
-		<uib-pagination total-items="totalIssues" ng-model="issueParams.startPage"
-						items-per-page="issueParams.pageSize" ng-change="userIssues()"
-						max-size="9" boundary-links="true" >
-		</uib-pagination>
-	</div>
-	<div ng-show="authService.isAdmin()">
-		<a href="#/projects/add" class="btn btn-success"> Add New Project</a>
-		<a href="#/projects/add-issue" class="btn btn-success" > Add New Issue</a>
-	</div>
-</div>
-	<h3 class="no-issues" ng-if="length<= 0">
-		No Issues
+			</table>
+			<div class="row text-center">
+				<uib-pagination total-items="totalIssues" ng-model="issueParams.startPage"
+								items-per-page="issueParams.pageSize" ng-change="userIssues()"
+								max-size="9" boundary-links="true" >
+				</uib-pagination>
+			</div>
+			<div ng-show="authService.isAdmin()">
+				<a href="#/projects/add" class="btn btn-success"> Add New Project</a>
+				<a href="#/projects/add-issue" class="btn btn-success" > Add New Issue</a>
+			</div>
+		</div>
+		<h3 class="no-issues" ng-if="length<= 0">
+			No Issues
 		</h3>
+	</div>
 </div>

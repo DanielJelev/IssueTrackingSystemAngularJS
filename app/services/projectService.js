@@ -1,6 +1,10 @@
 'use strict';
 
-app.factory('projectService',['$http','$localStorage','baseServiceUrl','authenticationService',
+app.factory('projectService',[
+    '$http',
+    '$localStorage',
+    'baseServiceUrl',
+    'authenticationService',
     function ($http,$localStorage, baseServiceUrl,authenticationService) {
 
         var projectService = {};
@@ -29,7 +33,6 @@ app.factory('projectService',['$http','$localStorage','baseServiceUrl','authenti
         };
 
         projectService.addProject = function(projectData){
-            console.log(projectData)
             return $http({
                 url : baseServiceUrl +'Projects',
                 method : "POST",
