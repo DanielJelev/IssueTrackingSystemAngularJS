@@ -1,8 +1,8 @@
-<div>
+<div class="col-md-7 center border" ng-controller="UserController">
     <div class="form-group" >
         <label for="user">Users</label>
         <div class="controls">
-
+            <loading></loading>
             <select class="form-control" id="user" name="project" ng-model="userData.UserId">
                 <option ng-repeat="user in users | orderBy: 'Name'" value="{{user.Id}}">
                     {{user.Username}}

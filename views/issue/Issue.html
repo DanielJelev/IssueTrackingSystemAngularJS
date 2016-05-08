@@ -47,7 +47,7 @@
         <div class="panel-body"><strong>Available statuses</strong></div>
         <div class="list-group">
 
-            <a href="#/issues/{{issue.Id}}" class="list-group-item" ng-repeat="issue in newProject.issues">{{issue.Title}}
+            <a href="#/issues/{{issue.Id}}" class="list-group-item" ng-repeat="status in issue.AvailableStatuses">{{status.Name}}
             </a>
         </div>
     </div>

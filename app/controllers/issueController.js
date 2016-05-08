@@ -99,7 +99,6 @@ app.controller('ViewIssueController', [
         issueService.getIssueById($routeParams.id)
             .then(function(data){
                 $scope.issue = data.data;
-                console.log(data.data)
             })
 
 

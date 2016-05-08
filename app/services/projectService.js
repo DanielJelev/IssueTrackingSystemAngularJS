@@ -1,7 +1,7 @@
 'use strict';
 
-app.factory('projectService',['$http','baseServiceUrl','authenticationService',
-    function ($http, baseServiceUrl,authenticationService) {
+app.factory('projectService',['$http','$localStorage','baseServiceUrl','authenticationService',
+    function ($http,$localStorage, baseServiceUrl,authenticationService) {
 
         var projectService = {};
 
@@ -40,7 +40,7 @@ app.factory('projectService',['$http','baseServiceUrl','authenticationService',
 
         projectService.editProject = function(id,projectData){
             return $http({
-                url : baseServiceUrl + "Project/"+id,
+                url : baseServiceUrl + "projects/"+id,
                 method : "PUT",
                 headers: authenticationService.getHeaders(),
                 data : projectData

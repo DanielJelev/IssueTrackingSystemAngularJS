@@ -32,7 +32,6 @@ ul.pagination {
   display: table;
   margin: 15px auto;
 }
-.loading { border:1px solid #ddd; padding:20px; margin:40px 5px; width:80px;}
 .no-issues{
   text-align: center;
   color:  white;

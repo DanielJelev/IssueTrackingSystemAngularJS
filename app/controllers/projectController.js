@@ -42,12 +42,18 @@ app.controller('ProjectController', [
         };
 
         $scope.addNewProjects = function (projectData) {
-            var Priorities = [];
+            var Priorities = [],
+                Labels = [];
 
 
             projectData.priorities.split(",").forEach(function(p) {
 
                     Priorities.push({ Name: p.trim() });
+
+            });
+            projectData.StringLabels.split(",").forEach(function(p) {
+
+                Labels.push({ Name: p.trim() });
 
             });
 
@@ -56,7 +62,8 @@ app.controller('ProjectController', [
                 Description: projectData.Description,
                 ProjectKey: projectData.ProjectKey,
                 LeadId: projectData.LeadId,
-                priorities: Priorities
+                priorities: Priorities,
+                labels: Labels
             };
 
             projectService.addProject(project)
@@ -76,15 +83,56 @@ app.controller('ProjectController', [
                 })
         };
 
+
+}]);
+app.controller('ViewProjectController', [
+    '$scope',
+    '$routeParams',
+    '$location',
+    'issueService',
+    'projectService',
+    'notifyService',
+    function ($scope,$routeParams, $location,issueService, projectService,notifyService) {
+
+
+        projectService.getProjectById($routeParams.id)
+            .then(function(data){
+                $scope.newProject = data.data;
+
+                issueService.getAllProjectIssues($routeParams.id)
+                    .then(function(data){
+                        $scope.newProject.issues = data.data;
+                    })
+
+            })
+
+
+    }]);
+app.controller('EditProjectController', [
+    '$scope',
+    '$routeParams',
+    '$location',
+    'issueService',
+    'projectService',
+    'notifyService',
+    function ($scope,$routeParams, $location,issueService, projectService,notifyService) {
+
+
+        projectService.getProjectById($routeParams.id)
+            .then(function(data){
+                $scope.currentProject = data.data;
+
+            });
+
         $scope.editProject = function(editProject){
-            projectService.getProjectById($routeParams.id).then(function(data){
+
                 var Priorities = [];
                 var Labels = [];
 
 
                 editProject.priorities.split(",").forEach(function(p) {
 
-                    Priorities.push({ Name: p.trim() });
+                    Priorities.push({ Name: p.trim(), });
 
                 });
 
@@ -111,33 +159,7 @@ app.controller('ProjectController', [
                         function error(error){
                             notifyService.showError("Failed to edit project");
                         });
-            })
 
         }
-
-
-
-}]);
-app.controller('ViewProjectController', [
-    '$scope',
-    '$routeParams',
-    '$location',
-    'issueService',
-    'projectService',
-    'notifyService',
-    function ($scope,$routeParams, $location,issueService, projectService,notifyService) {
-
-
-        projectService.getProjectById($routeParams.id)
-            .then(function(data){
-                $scope.newProject = data.data;
-
-                issueService.getAllProjectIssues($routeParams.id)
-                    .then(function(data){
-                        $scope.newProject.issues = data.data;
-                    })
-
-            })
-
 
     }]);

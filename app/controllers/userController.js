@@ -7,12 +7,13 @@ app.controller('UserController',[
     'pageSize',
 
     function ($scope, $location,$localStorage,authenticationService,userService,pageSize) {
-
+        $scope.loading = true;
         $scope.authService = authenticationService;
 
             $scope.getAllUsers = function(){
                 userService.getAllUsers()
                     .then(function(users){
+                        $scope.loading = false;
                        $scope.users = users.data;
                     });
             };

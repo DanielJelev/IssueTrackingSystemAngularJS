@@ -19,7 +19,7 @@
 
                 <div ng-if="newProject.Priorities.length > 0">
                     <span><strong>Priorities</strong></span>
-                    <span ng-repeat="priority in issue.Priorities">{{priority.Name}}; </span>
+                    <span ng-repeat="priority in newProject.Priorities">{{priority.Name}}; </span>
                 </div>
             </div>
         </fieldset>
@@ -39,6 +39,12 @@
             <a href="#/issues/{{issue.Id}}" class="list-group-item" ng-repeat="issue in newProject.issues">{{issue.Title}}
             </a>
         </div>
+    </div>
+</div>
+<div class="container col-md-6" ng-show="newProject.issues.length == 0">
+    <div class="panel panel-warning">
+        <div class="panel-body"><strong>No Issues</strong></div>
+
     </div>
 </div>
 

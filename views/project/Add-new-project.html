@@ -59,6 +59,17 @@
                        required>
             </div>
         </div>
+        <div class="form-group">
+            <label for="StringLabels" class="col-sm-2 control-label">Labels</label>
+            <div class="col-sm-10">
+                <input type="text"
+                       class="form-control"
+                       id="StringLabels"
+                       placeholder="Labels"
+                       ng-model="newProject.StringLabels"
+                       required>
+            </div>
+        </div>
         <div class="form-group text-center">
             <div class="col-md-13">
                 <button type="submit" class="btn btn-success" ng-click="addNewProjects(newProject)">Add Project</button>

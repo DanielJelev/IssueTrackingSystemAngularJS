@@ -40,7 +40,7 @@ app.config(['$routeProvider', function ($routeProvider) {
       })
       .when('/project/:id/edit', {
           templateUrl: 'views/project/edit-project.html',
-          controller: 'ProjectController'
+          controller: 'EditProjectController'
       })
       .when('/project/:id/add-issue', {
           templateUrl: 'views/project/add-project-issue.html',

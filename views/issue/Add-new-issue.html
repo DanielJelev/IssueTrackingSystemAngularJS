@@ -1,3 +1,4 @@
+<div class="col-md-7 center border">
 <div class="form-group">
     <label for="assignee">Assignee</label>
     <div class="controls">
@@ -16,7 +17,7 @@
 <div class="form-group" >
     <label for="project">Project</label>
     <div class="controls">
-
+        <loading></loading>
         <select class="form-control" id="project" name="project" ng-model="issueData.ProjectId" ng-change="getPriorities()">
             <option ng-repeat="project in projects | orderBy: 'Name'" value="{{project.Id}}">
                 {{project.Name}}
@@ -74,4 +75,5 @@
     <div class="col-md-13">
         <button type="submit" class="btn btn-success" ng-click="addIssue(issueData)">Add Issue</button>
     </div>
+</div>
 </div>

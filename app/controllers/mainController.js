@@ -24,7 +24,6 @@ app.controller('MainController',[
                         $scope.totalIssues = issues.data.TotalPages * $scope.issueParams.pageSize;
                         $scope.main.issues = issues.data.Issues;
                         $scope.length = issues.data.Issues.length;
-                        console.log($scope.length)
                     });
             };
             $scope.userIssues();

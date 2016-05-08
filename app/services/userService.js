@@ -22,10 +22,10 @@ app.factory('userService',[
             headers: authenticationService.getHeaders()
         });
     };
-        userService.getAllUsersPaging= function (params) {
+        userService.getUserById= function (id) {
             return $http({
                 method: 'GET',
-                url: baseServiceUrl + 'users?filter=&pageSize=' + params.pageSize + '&pageNumber=' + params.startPage,
+                url: baseServiceUrl + 'users?filter=&Id='+id,
                 headers: authenticationService.getHeaders()
             })
         };
